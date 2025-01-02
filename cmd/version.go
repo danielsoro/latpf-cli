@@ -15,3 +15,7 @@ func NewVersionCommand() *cobra.Command {
 		},
 	}
 }
+
+func init() {
+	rootCommand.AddCommand(NewVersionCommand())
+}
