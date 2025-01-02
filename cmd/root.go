@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"log/slog"
 )
 
 var rootCommand = &cobra.Command{
@@ -11,5 +12,8 @@ var rootCommand = &cobra.Command{
 
 func Execute() {
 	rootCommand.AddCommand(NewVersionCommand())
-	rootCommand.Execute()
+	err := rootCommand.Execute()
+	if err != nil {
+		slog.Error("Not possible to start CLI")
+	}
 }
