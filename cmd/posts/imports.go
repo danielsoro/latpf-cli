@@ -39,12 +39,12 @@ func init() {
 	importCommand.Flags().StringP("file", "f", "", "The post's file to import.")
 	importCommand.Flags().StringP("type", "t", "public", `The post types that should be imported. Allowed: "public", "premium", "curation"`)
 
-	err := importCommand.MarkPersistentFlagRequired("file")
+	err := importCommand.MarkFlagRequired("file")
 	if err != nil {
 		slog.Debug("Not possible to mark file flag as required", err)
 	}
 
-	err = importCommand.MarkPersistentFlagRequired("type")
+	err = importCommand.MarkFlagRequired("type")
 	if err != nil {
 		slog.Debug("Not possible to mark file flag as required", err)
 	}
