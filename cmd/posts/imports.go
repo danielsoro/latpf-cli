@@ -43,10 +43,4 @@ func init() {
 	if err != nil {
 		slog.Debug("Not possible to mark file flag as required", err)
 	}
-
-	err = importCommand.MarkFlagRequired("type")
-	if err != nil {
-		slog.Debug("Not possible to mark file flag as required", err)
-	}
-
 }
