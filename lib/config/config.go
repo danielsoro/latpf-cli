@@ -13,6 +13,7 @@ type Credentials struct {
 }
 
 type Config struct {
+	Url         string      `mapstructure:"url"`
 	Credentials Credentials `mapstructure:"credentials"`
 }
 
@@ -28,11 +29,11 @@ func NewConfigWithPath(path string) Config {
 	viper.SetConfigType("yaml")
 
 	if err := viper.ReadInConfig(); err != nil {
-		slog.Error("Not able to find the config file")
+		slog.Debug("Not able to find the config file")
 	}
 
 	if err := viper.Unmarshal(&config); err != nil {
-		slog.Error("Not possible to unmarshal config, verify if your configuration is correct")
+		slog.Debug("Not possible to unmarshal config, verify if your configuration is correct")
 	}
 
 	return config

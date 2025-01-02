@@ -1,3 +1,4 @@
+url: "https://foo.bar/wp-json/wp/v2"
 credentials:
   username: "foo"
   password: "bar"
