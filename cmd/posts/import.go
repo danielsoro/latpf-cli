@@ -12,12 +12,13 @@ var importCommand = &cobra.Command{
 	Use:   "import",
 	Short: "Import posts from file to wordpress",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		postType, err := cmd.Flags().GetString("type")
+		var postType wordpress.PostType = "public"
+		postFlag, err := cmd.Flags().GetString("type")
 		if err != nil {
 			return err
 		}
-		postTypeString := wordpress.PostType(postType)
-		err = postTypeString.Set(postType)
+
+		err = postType.Set(postFlag)
 		if err != nil {
 			return errors.New(fmt.Sprintf("The type flag %v", err.Error()))
 		}
