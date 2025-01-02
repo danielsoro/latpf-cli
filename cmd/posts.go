@@ -6,7 +6,7 @@ import (
 )
 
 var postCommand = &cobra.Command{
-	Use:   "post",
+	Use:   "posts",
 	Short: "Manage post from wordpress",
 }
 
