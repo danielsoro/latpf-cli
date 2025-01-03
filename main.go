@@ -7,21 +7,25 @@ import (
 	"github.com/danielsoro/wordpress-cli/cmd"
 )
 
-func main() {
-	logLevel := os.Getenv("WCLI_DEBUG")
+func getLogLevel(s string) slog.Level {
+	switch s {
+	case "debug":
+		return slog.LevelDebug
+	case "error":
+		return slog.LevelError
+	default:
+		return slog.LevelInfo
 
-	if len(logLevel) > 0 {
-		logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
-			Level: slog.LevelDebug,
-		}))
-
-		slog.SetDefault(logger)
-		cmd.Execute()
-		return
 	}
+}
 
-	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+func main() {
+	logLevel := getLogLevel(os.Getenv("WCLI_LOG"))
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level: logLevel,
+	}))
+
 	slog.SetDefault(logger)
-
 	cmd.Execute()
 }
