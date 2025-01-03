@@ -1,11 +1,11 @@
 package posts
 
 import (
-	"errors"
 	"fmt"
+	"log/slog"
+
 	"github.com/danielsoro/wordpress-cli/lib/wordpress"
 	"github.com/spf13/cobra"
-	"log/slog"
 )
 
 var importCommand = &cobra.Command{
@@ -20,7 +20,7 @@ var importCommand = &cobra.Command{
 
 		err = postType.Set(postFlag)
 		if err != nil {
-			return errors.New(fmt.Sprintf("The type flag %v", err.Error()))
+			return fmt.Errorf("the type flag %v", err.Error())
 		}
 		return nil
 	},
@@ -42,6 +42,6 @@ func init() {
 
 	err := importCommand.MarkFlagRequired("file")
 	if err != nil {
-		slog.Debug("Not possible to mark file flag as required", err)
+		slog.Debug("Not possible to mark file flag as required", slog.String("error", err.Error()))
 	}
 }

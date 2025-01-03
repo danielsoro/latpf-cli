@@ -1,10 +1,11 @@
 package cmd
 
 import (
+	"log/slog"
+
 	"github.com/danielsoro/wordpress-cli/lib/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"log/slog"
 )
 
 var rootCommand = &cobra.Command{
@@ -22,23 +23,23 @@ func init() {
 
 	err := viper.BindPFlag("credentials.username", rootCommand.PersistentFlags().Lookup("username"))
 	if err != nil {
-		slog.Debug("Not possible to bind username flag with config file: ", err)
+		slog.Debug("Not possible to bind username flag with config file: ", slog.String("error", err.Error()))
 	}
 
 	err = viper.BindPFlag("credentials.password", rootCommand.PersistentFlags().Lookup("password"))
 	if err != nil {
-		slog.Debug("Not possible to bind password flag with config file: ", err)
+		slog.Debug("Not possible to bind password flag with config file: ", slog.String("error", err.Error()))
 	}
 
 	err = viper.BindPFlag("url", rootCommand.PersistentFlags().Lookup("wordpress-url"))
 	if err != nil {
-		slog.Debug("Not possible to bind wordpress-url flag with config file: ", err)
+		slog.Debug("Not possible to bind wordpress-url flag with config file: ", slog.String("error", err.Error()))
 	}
 }
 
 func Execute() {
 	err := rootCommand.Execute()
 	if err != nil {
-		slog.Debug("Not possible to start CLI", err)
+		slog.Debug("Not possible to start CLI", slog.String("error", err.Error()))
 	}
 }
