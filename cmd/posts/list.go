@@ -13,13 +13,13 @@ import (
 var listCommand = &cobra.Command{
 	Use:   "list",
 	Short: "List posts from wordpress",
-	RunE: func(cmd *cobra.Command, args []string) error {
+	Run: func(cmd *cobra.Command, args []string) {
 		client := wordpress.NewWordpressWithViper()
 
 		posts := client.GetPosts()
 		if len(posts) == 0 {
-			fmt.Println("No posts found")
-			return nil
+			fmt.Println("No posts find")
+			return
 		}
 
 		rows := [][]string{}
@@ -36,9 +36,7 @@ var listCommand = &cobra.Command{
 		}
 
 		t.Rows(rows...)
-
 		fmt.Println(t)
-		return nil
 	},
 }
 
