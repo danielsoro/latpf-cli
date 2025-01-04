@@ -1,10 +1,10 @@
 package wordpress
 
 import (
-	"fmt"
+	"log/slog"
+
 	"github.com/sogko/go-wordpress"
 	"github.com/spf13/viper"
-	"log/slog"
 )
 
 type Wordpress interface {
@@ -48,8 +48,7 @@ func (w WithViper) CreatePost(title, content string) (*wordpress.Post, error) {
 func (w WithViper) GetPosts() []wordpress.Post {
 	posts, _, _, err := w.client.Posts().List(nil)
 	if err != nil {
-		slog.Debug("Error getting posts", slog.String("error", err.Error()))
-		fmt.Println("Error getting posts")
+		slog.Error("Error getting posts", slog.String("error", err.Error()))
 	}
 
 	return posts
