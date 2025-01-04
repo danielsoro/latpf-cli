@@ -18,7 +18,7 @@ type WithViper struct {
 	client *wordpress.Client
 }
 
-func NewWordpressWithViper() WithViper {
+func NewWordpressWithViper() Wordpress {
 	return WithViper{
 		client: wordpress.NewClient(&wordpress.Options{
 			BaseAPIURL: viper.GetString("url"),
