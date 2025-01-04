@@ -17,5 +17,7 @@ func NewVersionCommand() *cobra.Command {
 }
 
 func init() {
-	rootCommand.AddCommand(NewVersionCommand())
+	version := NewVersionCommand()
+	rootCommand.AddCommand(version)
+	RemoveRootRequiredFlags(version)
 }
