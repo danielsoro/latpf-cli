@@ -46,15 +46,6 @@ func makeFlagsRequired() {
 	}
 }
 
-func RemoveRootRequiredFlags(c *cobra.Command) {
-	c.InheritedFlags().MarkHidden("username")
-	c.InheritedFlags().SetAnnotation("username", cobra.BashCompOneRequiredFlag, []string{"false"})
-	c.InheritedFlags().MarkHidden("password")
-	c.InheritedFlags().SetAnnotation("password", cobra.BashCompOneRequiredFlag, []string{"false"})
-	c.InheritedFlags().MarkHidden("wordpress-url")
-	c.InheritedFlags().SetAnnotation("wordpress-url", cobra.BashCompOneRequiredFlag, []string{"false"})
-}
-
 func Execute() {
 	err := rootCommand.Execute()
 	if err != nil {
