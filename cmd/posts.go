@@ -12,5 +12,6 @@ var postCommand = &cobra.Command{
 
 func init() {
 	postCommand.AddCommand(posts.NewImportCommand())
+	postCommand.AddCommand(posts.NewListCommand())
 	rootCommand.AddCommand(postCommand)
 }

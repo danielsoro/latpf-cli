@@ -14,13 +14,13 @@ var importCommand = &cobra.Command{
 		var postType wordpress.PostType = "public"
 		postFlag, err := cmd.Flags().GetString("type")
 		if err != nil {
-			slog.Error("post import error", slog.String("error", err.Error()))
+			slog.Debug("post import error", slog.String("error", err.Error()))
 			return err
 		}
 
 		err = postType.Set(postFlag)
 		if err != nil {
-			slog.Error("post import error", slog.String("error", err.Error()))
+			slog.Debug("post import error", slog.String("error", err.Error()))
 			return err
 		}
 		return nil
