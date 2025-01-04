@@ -1,7 +1,6 @@
 package posts
 
 import (
-	"fmt"
 	"log/slog"
 
 	"github.com/danielsoro/wordpress-cli/lib/wordpress"
@@ -15,20 +14,16 @@ var importCommand = &cobra.Command{
 		var postType wordpress.PostType = "public"
 		postFlag, err := cmd.Flags().GetString("type")
 		if err != nil {
+			slog.Error("post import error", slog.String("error", err.Error()))
 			return err
 		}
 
 		err = postType.Set(postFlag)
 		if err != nil {
-			return fmt.Errorf("the type flag %v", err.Error())
+			slog.Error("post import error", slog.String("error", err.Error()))
+			return err
 		}
 		return nil
-	},
-	Run: func(cmd *cobra.Command, args []string) {
-		postType, _ := cmd.Flags().GetString("type")
-		postTypeString := wordpress.PostType(postType)
-		_ = postTypeString.Set(postType)
-		println(postTypeString)
 	},
 }
 
