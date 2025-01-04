@@ -9,12 +9,6 @@ import (
 	"strconv"
 )
 
-type post struct {
-	Id            int    `json:"id"`
-	TitleRaw      string `json:"titleRaw"`
-	TitleRendered string `json:"titleRendered"`
-}
-
 var listCommand = &cobra.Command{
 	Use:   "list",
 	Short: "List posts from wordpress",
