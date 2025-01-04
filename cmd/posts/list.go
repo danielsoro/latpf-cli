@@ -2,11 +2,12 @@ package posts
 
 import (
 	"fmt"
+	"strconv"
+
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/lipgloss/table"
 	"github.com/danielsoro/wordpress-cli/lib/wordpress"
 	"github.com/spf13/cobra"
-	"strconv"
 )
 
 var listCommand = &cobra.Command{
