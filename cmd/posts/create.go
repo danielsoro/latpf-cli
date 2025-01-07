@@ -1,24 +1,29 @@
 package posts
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/charmbracelet/lipgloss"
+	"github.com/charmbracelet/lipgloss/table"
 	"github.com/danielsoro/wordpress-cli/lib/wordpress"
 	"github.com/spf13/cobra"
+	"strconv"
 )
 
 type CreatePost struct {
-	client  wordpress.Wordpress
 	Command *cobra.Command
 }
 
-func NewImportCommand(client wordpress.Wordpress) CreatePost {
+func NewCreateCommand(clientType wordpress.ClientType) CreatePost {
 	createPostCommand := CreatePost{
-		client: client,
 		Command: &cobra.Command{
 			Use:   "create",
 			Short: "Create new wordpress post",
 			RunE: func(cmd *cobra.Command, args []string) error {
+				client, err := wordpress.NewWordPressClient(clientType)
+				if err != nil {
+					return err
+				}
+
 				title, err := cmd.Flags().GetString("title")
 				if err != nil {
 					return err
@@ -39,12 +44,14 @@ func NewImportCommand(client wordpress.Wordpress) CreatePost {
 					return err
 				}
 
-				result, err := json.MarshalIndent(post, "", " ")
-				if err != nil {
-					return err
-				}
+				rows := [][]string{{strconv.Itoa(post.ID), post.Title.Rendered, post.Content.Raw, post.Link}}
+				t := table.New().
+					Border(lipgloss.NormalBorder()).
+					BorderStyle(lipgloss.NewStyle().Foreground(lipgloss.Color("99"))).
+					Headers("ID", "Title", "Content", "Link")
 
-				print(fmt.Sprintf("%s", result))
+				t.Rows(rows...)
+				fmt.Println(t)
 				return nil
 			},
 		},
