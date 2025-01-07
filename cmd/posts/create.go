@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/lipgloss/table"
-	"github.com/danielsoro/wordpress-cli/lib/wordpress"
+	"github.com/danielsoro/wordpress-cli/lib/wordpress/client"
 	"github.com/spf13/cobra"
 	"strconv"
 )
@@ -13,13 +13,13 @@ type CreatePost struct {
 	Command *cobra.Command
 }
 
-func NewCreateCommand(clientType wordpress.ClientType) CreatePost {
+func NewCreateCommand(clientType client.WordPressClientType) CreatePost {
 	createPostCommand := CreatePost{
 		Command: &cobra.Command{
 			Use:   "create",
 			Short: "Create new wordpress post",
 			RunE: func(cmd *cobra.Command, args []string) error {
-				client, err := wordpress.NewWordPressClient(clientType)
+				wordPressClient, err := client.NewWordPressClient(clientType)
 				if err != nil {
 					return err
 				}
@@ -39,7 +39,7 @@ func NewCreateCommand(clientType wordpress.ClientType) CreatePost {
 					return err
 				}
 
-				post, err := client.CreatePost(title, content, status)
+				post, err := wordPressClient.CreatePost(title, content, status)
 				if err != nil {
 					return err
 				}

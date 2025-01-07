@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/danielsoro/wordpress-cli/lib/config"
-	"github.com/danielsoro/wordpress-cli/lib/wordpress"
+	"github.com/danielsoro/wordpress-cli/lib/wordpress/client"
 	"log/slog"
 
 	"github.com/spf13/cobra"
@@ -26,7 +26,7 @@ func Execute() {
 	_ = viper.BindPFlag("url", rootCommand.PersistentFlags().Lookup("wordpress-url"))
 
 	rootCommand.AddCommand(NewVersionCommand())
-	rootCommand.AddCommand(NewPostCommand(wordpress.VIPER).Command)
+	rootCommand.AddCommand(NewPostCommand(client.VIPER).Command)
 	err := rootCommand.Execute()
 
 	if err != nil {

@@ -2,12 +2,12 @@ package cmd
 
 import (
 	"github.com/danielsoro/wordpress-cli/cmd/posts"
-	"github.com/danielsoro/wordpress-cli/lib/wordpress"
+	"github.com/danielsoro/wordpress-cli/lib/wordpress/client"
 	"github.com/spf13/cobra"
 )
 
 type PostCommand struct {
-	client  wordpress.Wordpress
+	client  client.Wordpress
 	Command *cobra.Command
 }
 
@@ -16,7 +16,7 @@ var postCommand = &cobra.Command{
 	Short: "Manage post from wordpress",
 }
 
-func NewPostCommand(clientType wordpress.ClientType) PostCommand {
+func NewPostCommand(clientType client.WordPressClientType) PostCommand {
 	postCommand.AddCommand(posts.NewCreateCommand(clientType).Command)
 	postCommand.AddCommand(posts.NewListCommand(clientType).Command)
 

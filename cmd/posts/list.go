@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/lipgloss/table"
-	"github.com/danielsoro/wordpress-cli/lib/wordpress"
+	"github.com/danielsoro/wordpress-cli/lib/wordpress/client"
 	"github.com/spf13/cobra"
 	"log/slog"
 	"strconv"
@@ -14,19 +14,19 @@ type ListCommand struct {
 	Command *cobra.Command
 }
 
-func NewListCommand(clientType wordpress.ClientType) ListCommand {
+func NewListCommand(clientType client.WordPressClientType) ListCommand {
 	return ListCommand{
 		Command: &cobra.Command{
 			Use:   "list",
 			Short: "List posts from wordpress",
 			Run: func(cmd *cobra.Command, args []string) {
-				client, err := wordpress.NewWordPressClient(clientType)
+				wordPressClient, err := client.NewWordPressClient(clientType)
 				if err != nil {
 					slog.Error(err.Error())
 					return
 				}
 
-				posts := client.GetPosts()
+				posts := wordPressClient.GetPosts()
 
 				if len(posts) == 0 {
 					fmt.Println("No posts find")
