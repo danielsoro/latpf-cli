@@ -38,11 +38,11 @@ func NewListCommand(clientType client.WordPressClientType) ListCommand {
 				t := table.New().
 					Border(lipgloss.NormalBorder()).
 					BorderStyle(lipgloss.NewStyle().Foreground(lipgloss.Color("99"))).
-					Headers("ID", "Title", "Content", "Link")
+					Headers("ID", "Title", "Content", "Link", "Date")
 
 				for _, p := range posts {
 					rows = append(rows, []string{
-						strconv.Itoa(p.ID), p.Title.Rendered, p.Content.Raw, p.Link,
+						strconv.Itoa(p.ID), p.Title.Rendered, p.Content.Rendered, p.Link, p.Date,
 					})
 				}
 

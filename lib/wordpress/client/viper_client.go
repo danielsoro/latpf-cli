@@ -11,14 +11,17 @@ type WithViper struct {
 	client *wordpress.Client
 }
 
-func (w WithViper) CreatePost(title, content, status string) (*wordpress.Post, error) {
+func (w WithViper) CreatePost(title, content, status, date string) (*wordpress.Post, error) {
 	post, _, _, err := w.client.Posts().Create(&wordpress.Post{
 		Title: wordpress.Title{
-			Raw: title,
+			Raw:      title,
+			Rendered: title,
 		},
 		Content: wordpress.Content{
-			Raw: content,
+			Rendered: content,
+			Raw:      content,
 		},
+		Date:   date,
 		Status: status,
 	})
 

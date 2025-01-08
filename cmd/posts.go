@@ -19,6 +19,7 @@ var postCommand = &cobra.Command{
 func NewPostCommand(clientType client.WordPressClientType) PostCommand {
 	postCommand.AddCommand(posts.NewCreateCommand(clientType).Command)
 	postCommand.AddCommand(posts.NewListCommand(clientType).Command)
+	postCommand.AddCommand(posts.NewImportCommand(clientType).Command)
 
 	return PostCommand{
 		Command: postCommand,

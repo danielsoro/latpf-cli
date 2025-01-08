@@ -5,6 +5,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/lipgloss/table"
 	"github.com/danielsoro/wordpress-cli/lib/wordpress/client"
+	"github.com/dromara/carbon/v2"
 	"github.com/spf13/cobra"
 	"strconv"
 )
@@ -39,16 +40,16 @@ func NewCreateCommand(clientType client.WordPressClientType) CreatePost {
 					return err
 				}
 
-				post, err := wordPressClient.CreatePost(title, content, status)
+				post, err := wordPressClient.CreatePost(title, content, status, carbon.Now().ToRfc3339String())
 				if err != nil {
 					return err
 				}
 
-				rows := [][]string{{strconv.Itoa(post.ID), post.Title.Rendered, post.Content.Raw, post.Link}}
+				rows := [][]string{{strconv.Itoa(post.ID), post.Title.Rendered, post.Content.Raw, post.Link, post.Date}}
 				t := table.New().
 					Border(lipgloss.NormalBorder()).
 					BorderStyle(lipgloss.NewStyle().Foreground(lipgloss.Color("99"))).
-					Headers("ID", "Title", "Content", "Link")
+					Headers("ID", "Title", "Content", "Link", "Date")
 
 				t.Rows(rows...)
 				fmt.Println(t)

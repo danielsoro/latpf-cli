@@ -14,7 +14,7 @@ const (
 
 type Wordpress interface {
 	GetPosts() []wordpress.Post
-	CreatePost(title, content, status string) (*wordpress.Post, error)
+	CreatePost(title, content, status, data string) (*wordpress.Post, error)
 }
 
 func NewWordPressClient(clientType WordPressClientType) (Wordpress, error) {
