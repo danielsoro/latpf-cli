@@ -46,6 +46,7 @@ func NewImportCommand(clientType client.WordPressClientType) CreatePost {
 				case "public":
 					public = readPublic(path)
 					bar := progressbar.Default(int64(len(public)))
+					bar.Describe("Importing public posts...")
 					t := table.New().
 						Border(lipgloss.NormalBorder()).
 						BorderStyle(lipgloss.NewStyle().Foreground(lipgloss.Color("99"))).
@@ -63,18 +64,20 @@ func NewImportCommand(clientType client.WordPressClientType) CreatePost {
 						}
 
 						var rows [][]string
-
-						err = bar.Add(1)
-						if err != nil {
-							return err
-						}
 						rows = append(rows, []string{
 							strconv.Itoa(index), post.Title.Raw, post.Content.Raw[:20], post.Link, post.Date,
 						})
 
 						t.Rows(rows...)
+						err = bar.Add(1)
+						if err != nil {
+							return err
+						}
 					}
-
+					err = bar.Close()
+					if err != nil {
+						return err
+					}
 					fmt.Println(t)
 
 				case "article":
