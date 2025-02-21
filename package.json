@@ -1,7 +1,7 @@
 {
-  "name": "latpf-ia-agent",
+  "name": "latpf-cli",
   "bin": {
-    "latpf-ia": "index.js"
+    "latpf-cli": "index.js"
   },
   "version": "0.0.1",
   "description": "",
