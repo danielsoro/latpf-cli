@@ -1,7 +1,7 @@
 {
   "name": "latpf-cli",
   "bin": {
-    "latpf-cli": "index.js"
+    "latpf-cli": "./dist/index.js"
   },
   "version": "0.0.1",
   "description": "",
