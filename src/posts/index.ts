@@ -5,7 +5,7 @@ import { ListCommandFactory } from "./list";
 export class PostsCommandFactory {
   public static create(rootCommand: Command) {
     const posts = rootCommand.command('posts')
-    new ImportCommandFactory(posts)
-    new ListCommandFactory(posts)
+    ImportCommandFactory.create(posts)
+    ListCommandFactory.create(posts)
   }
 }
